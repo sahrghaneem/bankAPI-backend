@@ -75,10 +75,9 @@ const updateDrawMoney = (req, res) => {
    UserModel.findById(userId,(err,data)=>{
     if (err)
     return res.status(204).send(err)
-    const newCash=data.cash-cash
-    const newCridet=data.cridet-cash
-    if(newCash>0 && newCridet>0){
-    UserModel.findByIdAndUpdate(userId,{cash:newCash,cridet:newCridet},{new:true}, (err,data) => {
+    const newCash=data.cash- parseInt(cash)
+    if(newCash>0){
+    UserModel.findByIdAndUpdate(userId,{cash:newCash},{new:true}, (err,data) => {
         if (err)
         return res.status(204).send(err)
         return res.status(201).send(data)

@@ -97,16 +97,14 @@ const updateTransfer = (req, res) => {
    UserModel.findById(from,(err,data)=>{
     if (err)
     return res.status(204).send(err)
-    const newCashFrom=data.cash-cash
-    const newCridet=data.cridet-cash
-    if(newCashFrom>0 && newCridet>0){
+    const newCashFrom=data.cash- parseInt(cash)
+    if(newCashFrom>0){
     UserModel.findByIdAndUpdate(from,{cash:newCashFrom},{new:true}, (err,data2) => {
         if (err)
         return res.status(204).send(err)
        
     UserModel.findById(to,(err,data)=>{
-        const newCashTo=data.cash+cash
-        
+        const newCashTo=data.cash+parseInt(cash)
         if (err)
         return res.status(204).send(err)
         UserModel.findByIdAndUpdate(to,{cash:newCashTo},{new:true}, (err,data1) => {

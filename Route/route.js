@@ -16,6 +16,8 @@ router.get('/',(req,res)=>{
     UserController.updateCridetUser(req,res)
 }).put('/drawMoney/:userId',(req,res)=>{
 UserController.updateDrawMoney(req,res)
+}).put('/transferMoney/:from/:to',(req,res)=>{
+    UserController.updateTransfer(req,res)
 })
 
 module.exports=router;

@@ -76,8 +76,7 @@ const updateDrawMoney = (req, res) => {
     if (err)
     return res.status(204).send(err)
     const newCash=data.cash-cash
-    const newCridet=data.cridet-cridet
-    
+    const newCridet=data.cridet-cash
     if(newCash>0 && newCridet>0){
     UserModel.findByIdAndUpdate(userId,{cash:newCash,cridet:newCridet},{new:true}, (err,data) => {
         if (err)
@@ -91,6 +90,40 @@ const updateDrawMoney = (req, res) => {
    
 }
 
+const updateTransfer = (req, res) => {
+    const {from , to} = req.params
+    const {cash} = req.body
+
+   UserModel.findById(from,(err,data)=>{
+    if (err)
+    return res.status(204).send(err)
+    const newCashFrom=data.cash-cash
+    const newCridet=data.cridet-cash
+    if(newCashFrom>0 && newCridet>0){
+    UserModel.findByIdAndUpdate(from,{cash:newCashFrom},{new:true}, (err,data2) => {
+        if (err)
+        return res.status(204).send(err)
+       
+    UserModel.findById(to,(err,data)=>{
+        const newCashTo=data.cash+cash
+        
+        if (err)
+        return res.status(204).send(err)
+        UserModel.findByIdAndUpdate(to,{cash:newCashTo},{new:true}, (err,data1) => {
+        if (err)
+        return res.status(204).send(err)
+        return res.status(200).json({data1,data2})
+
+        })
+
+    })
+}
+    )}
+})
+}
+
+
+
 module.exports ={
 getAllUsers,
 getUsersbyId,
@@ -98,5 +131,6 @@ addNewUsers,
 updateCashUser,
 deleteUser,
 updateCridetUser,
-updateDrawMoney
+updateDrawMoney,
+updateTransfer
 }

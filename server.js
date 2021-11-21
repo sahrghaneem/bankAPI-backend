@@ -7,9 +7,10 @@ const UserController=require('./controller/UserController');
 require('dotenv').config()
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(cors());
 app.use('/api/bank',require('./Route/route'));
 
- app.use(cors());
+
 
 
 

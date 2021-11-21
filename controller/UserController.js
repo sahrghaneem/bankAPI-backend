@@ -3,6 +3,7 @@ const UserModel=require('../models/model').bankModel
 const getAllUsers = (req, res) => {
 UserModel.find({}, (err, user) => {
         if (err) return res.status(404).json(err);
+        if (user)
         return res.status(200).json(user)
     })
 }
@@ -82,7 +83,7 @@ const updateDrawMoney = (req, res) => {
         return res.status(204).send(err)
         return res.status(201).send(data)
 
-    })
+})
 }
 })
       

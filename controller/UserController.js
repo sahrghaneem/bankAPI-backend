@@ -1,10 +1,10 @@
 const UserModel=require('../models/model').bankModel
 
 const getAllUsers = (req, res) => {
-UserModel.find({}, (err, user) => {
+UserModel.find({}, (err, data) => {
         if (err) return res.status(404).json(err);
-        if (user)
-        return res.status(200).json(user)
+        if (data)
+        return res.status(200).json(data)
     })
 }
 
